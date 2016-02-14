@@ -50,6 +50,12 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+        for (i = new Date().getFullYear() ; i > 2000; i--) {
+            $('.yearpicker').append($('<option />').val(i).html(i));
+        }
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
