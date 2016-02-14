@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using OptionsWebSite.Models;
+using DiplomaDataModel.Models;
 
-namespace OptionsWebSite
+namespace DiplomaDataModel
 {
     public partial class Startup
     {

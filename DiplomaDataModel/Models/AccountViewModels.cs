@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace OptionsWebSite.Models
+namespace DiplomaDataModel.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -63,6 +63,11 @@ namespace OptionsWebSite.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "StudentId")]
+        [RegularExpression(@"^(A00[0-9]{6,6})+$", ErrorMessage = "Invalid Id")]
+        public string StudentId { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
