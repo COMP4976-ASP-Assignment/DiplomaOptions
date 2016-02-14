@@ -12,7 +12,8 @@ namespace DiplomaDataModel.Models
         public OptionsContext() : base("DefaultConnection") { }
 
         public DbSet<Option>   Options { get; set; }
-        public DbSet<Choice>   Choices { get; set; }
         public DbSet<YearTerm> YearTerms { get; set; }
+        public DbSet<Choice> Choices { get; set; }
+
     }
 }

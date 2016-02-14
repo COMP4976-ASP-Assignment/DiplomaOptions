@@ -218,6 +218,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\OptionsMigrations\201602140623538_Initial Create.cs" />
+    <Compile Include="Migrations\OptionsMigrations\201602140623538_Initial Create.Designer.cs">
+      <DependentUpon>201602140623538_Initial Create.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\OptionsMigrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -323,6 +327,11 @@
       <Project>{5cd6086a-d86d-489a-88e8-efb756ee91e2}</Project>
       <Name>DiplomaDataModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\OptionsMigrations\201602140623538_Initial Create.resx">
+      <DependentUpon>201602140623538_Initial Create.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
