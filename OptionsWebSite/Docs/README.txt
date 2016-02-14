@@ -1,5 +1,15 @@
-﻿Enable-Migrations -ContextTypeName CoursesContext -MigrationsDirectory Migrations\CoursesMigrations
+﻿Enable-Migrations -ContextProjectName DiplomaDataModel -ContextTypeName OptionsContext -MigrationsDirectory Migrations\OptionsMigrations
 
-add-migration -ConfigurationTypeName Courses.Web.Migrations.CourseMigrations.Configuration "InitialCreate"
+add-migration -ConfigurationTypeName DiplomaDataModel.Models.Configuration "Initial Create"
 
-update-database -ConfigurationTypeName Courses.Web.Migrations.CourseMigrations.Configuration
+update-database -ConfigurationTypeName DiplomaDataModel.Models.Configuration
+
+
+
+ROLLBACK ALL MIGRATIONS
+-----------------------
+Update-Database -TargetMigration:0
+
+ROLLBACK TO A MIGRATION
+-----------------------
+Update-Database -TargetMigration:"MigrationName"
