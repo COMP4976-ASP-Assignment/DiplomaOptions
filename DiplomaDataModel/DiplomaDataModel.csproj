@@ -100,6 +100,9 @@
     <Compile Include="AccountViewModels.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="ManageViewModels.cs" />
+    <Compile Include="Models\Choice.cs" />
+    <Compile Include="Models\Option.cs" />
+    <Compile Include="Models\OptionsContext.cs" />
     <Compile Include="Models\YearTerm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
