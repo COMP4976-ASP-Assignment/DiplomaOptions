@@ -43,6 +43,7 @@ namespace OptionsWebSite.Controllers
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
             ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
+            ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
             return View();
         }
 

@@ -24,12 +24,12 @@ namespace OptionsWebSite.Migrations.OptionsMigrations
 
             context.SaveChanges();
 
-            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 1, Title = "Data Communications", IsActive = true });
-            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 2, Title = "Client Server", IsActive = true });
-            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 3, Title = "Digital Processing", IsActive = true });
+            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 1, Title = "Data Communications",  IsActive = true });
+            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 2, Title = "Client Server",        IsActive = true });
+            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 3, Title = "Digital Processing",   IsActive = true });
             context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 4, Title = "Informations Systems", IsActive = true });
-            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 5, Title = "Database", IsActive = false });
-            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 6, Title = "Web and Mobile", IsActive = true });
+            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 5, Title = "Database",             IsActive = false });
+            context.Options.AddOrUpdate(o => o.OptionId, new Option { OptionId = 6, Title = "Web and Mobile",       IsActive = true });
 
             context.SaveChanges();
 
