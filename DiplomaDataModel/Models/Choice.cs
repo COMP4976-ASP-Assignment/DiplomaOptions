@@ -17,15 +17,15 @@ namespace DiplomaDataModel.Models
         [Required]
         [ReadOnly(true)]
         [RegularExpression("^A00[0-9]{6}$")]
-        [MaxLength(9)]
+        [StringLength(9)]
         public String StudentId { get; set; }
 
         [Required]
-        [MaxLength(40)]
+        [StringLength(40)]
         public String FirstName { get; set; }
 
         [Required]
-        [MaxLength(40)]
+        [StringLength(40)]
         public String LastName { get; set; }
 
         [Display(Name = "First Choice: ")]
@@ -52,8 +52,11 @@ namespace DiplomaDataModel.Models
         [ForeignKey("FourthChoiceOptionId")]
         public Option FourthOption { get; set; }
 
-        //[ForeignKey]
         public int YearTermId { get; set; }
+
+        [ForeignKey("YearTermId")]
+        public YearTerm YearTerm { get; set; }
+
 
         public DateTime SelectionDate { get; set; }
     }

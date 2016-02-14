@@ -17,15 +17,5 @@ namespace DiplomaDataModel.Models
         public int          Term { get; set; }
 
         public Boolean      IsDefault { get; set; }
-
-        public List<Choice> Choices { get; set; }
     }
 }
-
-/* 
-    Year	Term	IsDefault
-    2015	 20	     False
-    2015	 30	     False
-    2016	 10	     False
-    2016	 30	     True
-*/

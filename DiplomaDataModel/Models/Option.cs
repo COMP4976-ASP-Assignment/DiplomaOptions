@@ -12,23 +12,9 @@ namespace DiplomaDataModel.Models
         [Key]
         public int          OptionId { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public String       Title { get; set; }
 
         public Boolean      IsActive { get; set; }
-
-        public List<Choice> Choices { get; set; }
     }
 }
-
-/*  
-    Title	            IsActive
-    Data Communications	 True
-    Client Server	     True
-    Digital Processing	 True
-    Information Systems	 True
-    Database	         False
-    Web & Mobile	     True
-    Tech Pro	         False
-
-*/
