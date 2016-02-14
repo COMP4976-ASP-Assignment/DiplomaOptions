@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OptionsWebSite.Models;
+using DiplomaDataModel.Models;
 
-namespace OptionsWebSite.Controllers
+namespace DiplomaDataModel.Controllers
 {
     [Authorize]
     public class AccountController : Controller
@@ -151,7 +151,7 @@ namespace OptionsWebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, StudentId = model.StudentId };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

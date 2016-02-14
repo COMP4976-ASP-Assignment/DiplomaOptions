@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OptionsWebSite.Models;
+using DiplomaDataModel.Models;
 
-namespace OptionsWebSite.Controllers
+namespace DiplomaDataModel.Controllers
 {
     [Authorize]
     public class ManageController : Controller

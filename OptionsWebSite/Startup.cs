@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(OptionsWebSite.Startup))]
-namespace OptionsWebSite
+[assembly: OwinStartupAttribute(typeof(DiplomaDataModel.Startup))]
+namespace DiplomaDataModel
 {
     public partial class Startup
     {
