@@ -70,6 +70,7 @@ namespace OptionsWebSite.Models
 
         [Required]
         [Display(Name = "Username")]
+        [RegularExpression("^A00[0-9]{6}$")]
         public string Username { get; set; }
 
         [Required]

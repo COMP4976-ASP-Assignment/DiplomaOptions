@@ -17,7 +17,6 @@ namespace DiplomaDataModel.Models
         [Required]
         [ReadOnly(true)]
         [RegularExpression("^A00[0-9]{6}$")]
-        [StringLength(9)]
         public String StudentId { get; set; }
 
         [Required]
