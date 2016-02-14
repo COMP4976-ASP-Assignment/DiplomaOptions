@@ -2,103 +2,134 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using DiplomaDataModel.Models;
 
 namespace OptionsWebSite.Controllers
 {
-    public class ChoicesController : ApiController
+    public class ChoicesController : Controller
     {
         private OptionsContext db = new OptionsContext();
 
-        // GET: api/Choices
-        public IQueryable<Choice> GetChoices()
+        // GET: Choices
+        public ActionResult Index()
         {
-            return db.Choices;
+            var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption);
+            return View(choices.ToList());
         }
 
-        // GET: api/Choices/5
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult GetChoice(int id)
+        // GET: Choices/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Choice choice = db.Choices.Find(id);
             if (choice == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(choice);
+            return View(choice);
         }
 
-        // PUT: api/Choices/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutChoice(int id, Choice choice)
+        // GET: Choices/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
+            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
+            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
+            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
+            return View();
+        }
 
-            if (id != choice.ChoiceId)
+        // POST: Choices/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ChoiceId,StudentId,FirstName,LastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,YearTermId,SelectionDate")] Choice choice)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(choice).State = EntityState.Modified;
-
-            try
-            {
+                db.Choices.Add(choice);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ChoiceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
+            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
+            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
+            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.ThirdChoiceOptionId);
+            return View(choice);
         }
 
-        // POST: api/Choices
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult PostChoice(Choice choice)
+        // GET: Choices/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.Choices.Add(choice);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = choice.ChoiceId }, choice);
-        }
-
-        // DELETE: api/Choices/5
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult DeleteChoice(int id)
-        {
             Choice choice = db.Choices.Find(id);
             if (choice == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
+            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
+            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
+            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.ThirdChoiceOptionId);
+            return View(choice);
+        }
 
+        // POST: Choices/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ChoiceId,StudentId,FirstName,LastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,YearTermId,SelectionDate")] Choice choice)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(choice).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
+            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
+            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
+            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.ThirdChoiceOptionId);
+            return View(choice);
+        }
+
+        // GET: Choices/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Choice choice = db.Choices.Find(id);
+            if (choice == null)
+            {
+                return HttpNotFound();
+            }
+            return View(choice);
+        }
+
+        // POST: Choices/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Choice choice = db.Choices.Find(id);
             db.Choices.Remove(choice);
             db.SaveChanges();
-
-            return Ok(choice);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -108,11 +139,6 @@ namespace OptionsWebSite.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool ChoiceExists(int id)
-        {
-            return db.Choices.Count(e => e.ChoiceId == id) > 0;
         }
     }
 }

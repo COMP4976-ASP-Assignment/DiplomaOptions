@@ -2,103 +2,117 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using DiplomaDataModel.Models;
 
 namespace OptionsWebSite.Controllers
 {
-    public class YearTermsController : ApiController
+    public class YearTermsController : Controller
     {
         private OptionsContext db = new OptionsContext();
 
-        // GET: api/YearTerms
-        public IQueryable<YearTerm> GetYearTerms()
+        // GET: YearTerms
+        public ActionResult Index()
         {
-            return db.YearTerms;
+            return View(db.YearTerms.ToList());
         }
 
-        // GET: api/YearTerms/5
-        [ResponseType(typeof(YearTerm))]
-        public IHttpActionResult GetYearTerm(int id)
+        // GET: YearTerms/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             YearTerm yearTerm = db.YearTerms.Find(id);
             if (yearTerm == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(yearTerm);
+            return View(yearTerm);
         }
 
-        // PUT: api/YearTerms/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutYearTerm(int id, YearTerm yearTerm)
+        // GET: YearTerms/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
 
-            if (id != yearTerm.YearTermId)
+        // POST: YearTerms/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "YearTermId,Year,Term,IsDefault")] YearTerm yearTerm)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(yearTerm).State = EntityState.Modified;
-
-            try
-            {
+                db.YearTerms.Add(yearTerm);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!YearTermExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(yearTerm);
         }
 
-        // POST: api/YearTerms
-        [ResponseType(typeof(YearTerm))]
-        public IHttpActionResult PostYearTerm(YearTerm yearTerm)
+        // GET: YearTerms/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.YearTerms.Add(yearTerm);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = yearTerm.YearTermId }, yearTerm);
-        }
-
-        // DELETE: api/YearTerms/5
-        [ResponseType(typeof(YearTerm))]
-        public IHttpActionResult DeleteYearTerm(int id)
-        {
             YearTerm yearTerm = db.YearTerms.Find(id);
             if (yearTerm == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(yearTerm);
+        }
 
+        // POST: YearTerms/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "YearTermId,Year,Term,IsDefault")] YearTerm yearTerm)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(yearTerm).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(yearTerm);
+        }
+
+        // GET: YearTerms/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            YearTerm yearTerm = db.YearTerms.Find(id);
+            if (yearTerm == null)
+            {
+                return HttpNotFound();
+            }
+            return View(yearTerm);
+        }
+
+        // POST: YearTerms/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            YearTerm yearTerm = db.YearTerms.Find(id);
             db.YearTerms.Remove(yearTerm);
             db.SaveChanges();
-
-            return Ok(yearTerm);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -108,11 +122,6 @@ namespace OptionsWebSite.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool YearTermExists(int id)
-        {
-            return db.YearTerms.Count(e => e.YearTermId == id) > 0;
         }
     }
 }

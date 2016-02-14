@@ -2,103 +2,117 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using DiplomaDataModel.Models;
 
 namespace OptionsWebSite.Controllers
 {
-    public class OptionsController : ApiController
+    public class OptionsController : Controller
     {
         private OptionsContext db = new OptionsContext();
 
-        // GET: api/Options
-        public IQueryable<Option> GetOptions()
+        // GET: Options
+        public ActionResult Index()
         {
-            return db.Options;
+            return View(db.Options.ToList());
         }
 
-        // GET: api/Options/5
-        [ResponseType(typeof(Option))]
-        public IHttpActionResult GetOption(int id)
+        // GET: Options/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Option option = db.Options.Find(id);
             if (option == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(option);
+            return View(option);
         }
 
-        // PUT: api/Options/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutOption(int id, Option option)
+        // GET: Options/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
 
-            if (id != option.OptionId)
+        // POST: Options/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "OptionId,Title,IsActive")] Option option)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(option).State = EntityState.Modified;
-
-            try
-            {
+                db.Options.Add(option);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OptionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(option);
         }
 
-        // POST: api/Options
-        [ResponseType(typeof(Option))]
-        public IHttpActionResult PostOption(Option option)
+        // GET: Options/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.Options.Add(option);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = option.OptionId }, option);
-        }
-
-        // DELETE: api/Options/5
-        [ResponseType(typeof(Option))]
-        public IHttpActionResult DeleteOption(int id)
-        {
             Option option = db.Options.Find(id);
             if (option == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(option);
+        }
 
+        // POST: Options/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "OptionId,Title,IsActive")] Option option)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(option).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(option);
+        }
+
+        // GET: Options/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Option option = db.Options.Find(id);
+            if (option == null)
+            {
+                return HttpNotFound();
+            }
+            return View(option);
+        }
+
+        // POST: Options/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Option option = db.Options.Find(id);
             db.Options.Remove(option);
             db.SaveChanges();
-
-            return Ok(option);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -108,11 +122,6 @@ namespace OptionsWebSite.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool OptionExists(int id)
-        {
-            return db.Options.Count(e => e.OptionId == id) > 0;
         }
     }
 }
