@@ -151,12 +151,14 @@ namespace DiplomaDataModel.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, StudentId = model.StudentId };
+                var user = new ApplicationUser { UserName = model.StudentId, Email = model.Email, StudentId = model.StudentId };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+                    //add role
+                    UserManager.AddToRole(UserManager.FindByEmail(user.Email).Id, "Student");
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

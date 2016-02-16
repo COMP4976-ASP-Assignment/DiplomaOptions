@@ -10,6 +10,7 @@ using DiplomaDataModel.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using DiplomaDataModel;
+using System.Collections;
 
 namespace OptionsWebSite.Controllers
 {
@@ -17,6 +18,7 @@ namespace OptionsWebSite.Controllers
     {
         private DiplomaContext db = new DiplomaContext();
 
+        [Authorize(Roles = "Admin")]
         // GET: Choices
         public ActionResult Index()
         {
@@ -24,6 +26,7 @@ namespace OptionsWebSite.Controllers
             return View(choices.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Choices/Details/5
         public ActionResult Details(int? id)
         {
@@ -43,13 +46,28 @@ namespace OptionsWebSite.Controllers
         public ActionResult Create()
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            ViewBag.StudentId = user.StudentId;
-            Response.Write(user.StudentId);
+            ViewBag.StudentId = user.UserName;
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
             ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
+            
+
+            IList<YearTerm> yearTerms = db.YearTerms.ToList();
+
+            var name = new Dictionary<int, string>();
+
+            name[10] = "Winter";
+            name[20] = "Spring/Summer";
+            name[30] = "Fall";
+
+            IEnumerable<SelectListItem> selectList = from year in yearTerms
+                                                     select new SelectListItem
+                                                     {
+                                                         Text = name[year.Term],
+                                                         Value = year.YearTermId.ToString()
+                                                     };
+            ViewBag.YearTermId = selectList;
             return View();
         }
 
@@ -58,7 +76,7 @@ namespace OptionsWebSite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ChoiceId,StudentId,YearTermId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
+        public ActionResult Create([Bind(Include = "ChoiceId,StudentId,YearTermId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId")] Choice choice)
         {
             if (ModelState.IsValid)
             {
@@ -75,6 +93,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Choices/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -95,6 +114,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Choices/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -116,6 +136,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Choices/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -131,6 +152,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Choices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
