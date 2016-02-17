@@ -76,8 +76,10 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId })
+            @*<a href="@Url.Action("Edit", "Edit")"><i class="fa fa-pencil-square-o  fa-2x"></i></a>*@
+            @*@Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId }) 
+            @*<a href="@Url.Action("Delete", "Delete")"><i class="fa fa-trash  fa-2x"></i></a>*@
         </td>
     </tr>
 }
