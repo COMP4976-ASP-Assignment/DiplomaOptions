@@ -14,7 +14,7 @@ namespace DiplomaDataModel.Models
     {
         public int ChoiceId { get; set; }
 
-        [Index("", IsUnique = true)]
+        [Index("StudentId", IsUnique = true)]
         [Display(Name = "Student Number: ")]
         public String StudentId
         { get; set; }

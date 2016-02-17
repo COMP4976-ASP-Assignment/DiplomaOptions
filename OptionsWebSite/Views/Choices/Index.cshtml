@@ -25,7 +25,10 @@
             @Html.DisplayNameFor(model => model.ThirdOption.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.YearTerm.YearTermId)
+            @*@Html.DisplayNameFor(model => model.YearTerm.YearTermId)*@
+            Year Term
+
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.StudentId)
@@ -54,7 +57,13 @@
             @Html.DisplayFor(modelItem => item.ThirdOption.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.YearTermId)
+            @Html.DisplayFor(modelItem => item.YearTerm.Year)&nbsp;
+            @if (item.YearTerm.Term == 10)
+            { <span>Winter</span> }
+            @if (item.YearTerm.Term == 20)
+            { <span>Spring/Summer</span> }
+            @if (item.YearTerm.Term == 30)
+            { <span>Fall</span> }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.StudentId)
