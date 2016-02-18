@@ -17,6 +17,18 @@
         window.appInsights=appInsights;
         appInsights.trackPageView();
     </script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script>
+    function initialize() {
+      var mapProp = {
+        center:new google.maps.LatLng(49.25,-123.0),
+        zoom:12,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+      var map=new google.maps.Map(document.getElementById("bcitMap"),mapProp);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -63,6 +75,12 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script>
+    $(function () {
+        var text = $("aside#res").html();
+        $("span#inject").html((text == "You've Successfully Registered") ? "<span style='color:#4E9A4E'>" + text + "</span>" : "<span style='color:##9A4E4E'>Pending&hellip;</span>");
+    });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
