@@ -110,9 +110,20 @@ namespace OptionsWebSite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var choices = db.Choices.Where(a => a.YearTermId == id).Select(a => a.ChoiceId);
+                
+           foreach (var a in choices)
+            {
+                Choice c = db.Choices.Find(a);
+                db.Choices.Remove(c);
+            }
+            
+
             YearTerm yearTerm = db.YearTerms.Find(id);
             db.YearTerms.Remove(yearTerm);
             db.SaveChanges();
+
+            
             return RedirectToAction("Index");
         }
 

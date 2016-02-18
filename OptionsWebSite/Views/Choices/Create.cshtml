@@ -7,6 +7,7 @@
 <h2>Create</h2>
 
 <h3 class="field-validation-error">@ViewBag.Error</h3>
+<h3 class="field-validation-error">@ViewBag.ErrorChoices</h3>
 @if (ViewBag.Error == null)
 {
     using (Html.BeginForm())
@@ -25,12 +26,10 @@
             </div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.YearTermId, "YearTermId", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.YearTermId,  htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @*@Html.DropDownList("YearTermId", null, htmlAttributes: new { @class = "form-control" })*@
                     @Html.HiddenFor(model => model.YearTermId, htmlAttributes: new { @Value = ViewBag.YearTermIdValue, @name = "YearTermId" })
                     <input type="text" name="garbage" readonly="readonly" placeholder="@ViewBag.YearTermDisplay" class="form-control"/>
-                    @*@Html.TextBoxFor(model => model.YearTermId, new { @name = "garbage",  @class = "form-control", @placeholder = ViewBag.YearTermDisplay, @readonly = "true" })*@
                     @Html.ValidationMessageFor(model => model.YearTermId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -52,7 +51,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.FirstChoiceOptionId, "FirstChoiceOptionId", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.FirstChoiceOptionId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("FirstChoiceOptionId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.FirstChoiceOptionId, "", new { @class = "text-danger" })
@@ -60,7 +59,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.SecondChoiceOptionId, "SecondChoiceOptionId", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.SecondChoiceOptionId,  htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("SecondChoiceOptionId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.SecondChoiceOptionId, "", new { @class = "text-danger" })
@@ -68,7 +67,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.ThirdChoiceOptionId, "ThirdChoiceOptionId", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ThirdChoiceOptionId,  htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("ThirdChoiceOptionId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ThirdChoiceOptionId, "", new { @class = "text-danger" })
@@ -76,7 +75,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.FourthChoiceOptionId, "FourthChoiceOptionId", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.FourthChoiceOptionId,  htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("FourthChoiceOptionId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.FourthChoiceOptionId, "", new { @class = "text-danger" })

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiplomaDataModel.Models.CustomValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -37,31 +38,35 @@ namespace DiplomaDataModel.Models
         [StringLength(40, ErrorMessage = "Name is too long, 40 characters maximum")]
         public String StudentLastName { get; set; }
 
+        [Required]
+        [CheckDuplicates("SecondChoiceOptionId", "ThirdChoiceOptionId", "FourthChoiceOptionId")]
         [Display(Name = "First Choice: ")]
         [ForeignKey("FirstOption")]
         public int? FirstChoiceOptionId { get; set; }
-
         [ForeignKey("FirstChoiceOptionId")]
         public Option FirstOption { get; set; }
 
+        [Required]
+        [CheckDuplicates("FirstChoiceOptionId", "ThirdChoiceOptionId", "FourthChoiceOptionId")]
         [Display(Name = "Second Choice: ")]
         [ForeignKey("SecondOption")]
         public int? SecondChoiceOptionId { get; set; }
-
         [ForeignKey("FirstChoiceOptionId")]
         public Option SecondOption { get; set; }
 
+        [Required]
+        [CheckDuplicates("FirstChoiceOptionId", "SecondChoiceOptionId", "FourthChoiceOptionId")]
         [Display(Name = "Third Choice: ")]
         [ForeignKey("ThirdOption")]
         public int? ThirdChoiceOptionId { get; set; }
-
         [ForeignKey("ThirdChoiceOptionId")]
         public Option ThirdOption { get; set; }
 
+        [Required]
+        [CheckDuplicates("FirstChoiceOptionId", "SecondChoiceOptionId", "ThirdChoiceOptionId")]
         [Display(Name = "Fourth Choice: ")]
         [ForeignKey("FourthOption")]
         public int? FourthChoiceOptionId { get; set; }
-
         [ForeignKey("FourthChoiceOptionId")]
         public Option FourthOption { get; set; }
 
