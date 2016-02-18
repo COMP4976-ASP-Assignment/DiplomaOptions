@@ -1,6 +1,10 @@
 ﻿enable-migrations -ContextProject DiplomaDataModel  -ContextTypeName DiplomaContext -MigrationsDirectory Migrations\DiplomaMigrations
 
+enable-migrations -ContextProject DiplomaDataModel  -ContextTypeName ApplicationDbContext -MigrationsDirectory Migrations\ApplicationsMigrations
+
 add-migration -ConfigurationTypeName OptionsWebSite.Migrations.DiplomaMigrations.Configuration "InitialCreate"
+
+add-migration -ConfigurationTypeName OptionsWebSite.Migrations.ApplicationsMigrations.Configuration "InitialCreate"
 
 update-database -ConfigurationTypeName OptionsWebSite.Migrations.DiplomaMigrations.Configuration
 

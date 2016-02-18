@@ -64,8 +64,8 @@ namespace DiplomaDataModel.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "StudentId")]
-        [RegularExpression(@"^(A00[0-9]{6,6})+$", ErrorMessage = "Invalid Id")]
+        [Display(Name = "Username")]
+        [RegularExpression(@"^(A00[0-9]{6,6})$", ErrorMessage = "Invalid Id")]
         public string StudentId { get; set; }
 
         [Required]
@@ -73,7 +73,7 @@ namespace DiplomaDataModel.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Username")]
         public string Username { get; set; }
 

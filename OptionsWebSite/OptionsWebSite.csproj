@@ -203,12 +203,23 @@
     <Compile Include="Controllers\ChoicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OptionsController.cs" />
+    <Compile Include="Controllers\YearTermsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\DiplomaMigrations\201602140727339_InitialCreate.cs" />
-    <Compile Include="Migrations\DiplomaMigrations\201602140727339_InitialCreate.Designer.cs">
-      <DependentUpon>201602140727339_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\ApplicationsMigrations\201602160048215_InitialCreate.cs" />
+    <Compile Include="Migrations\ApplicationsMigrations\201602160048215_InitialCreate.Designer.cs">
+      <DependentUpon>201602160048215_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ApplicationsMigrations\201602160117559_InitialCreate1.cs" />
+    <Compile Include="Migrations\ApplicationsMigrations\201602160117559_InitialCreate1.Designer.cs">
+      <DependentUpon>201602160117559_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ApplicationsMigrations\Configuration.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201602160102226_InitialCreate.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201602160102226_InitialCreate.Designer.cs">
+      <DependentUpon>201602160102226_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DiplomaMigrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,6 +232,7 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Docs\Backup.txt" />
     <Content Include="Docs\README.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -287,6 +299,16 @@
     <Content Include="Views\Choices\Details.cshtml" />
     <Content Include="Views\Choices\Edit.cshtml" />
     <Content Include="Views\Choices\Index.cshtml" />
+    <Content Include="Views\YearTerms\Create.cshtml" />
+    <Content Include="Views\YearTerms\Delete.cshtml" />
+    <Content Include="Views\YearTerms\Details.cshtml" />
+    <Content Include="Views\YearTerms\Edit.cshtml" />
+    <Content Include="Views\YearTerms\Index.cshtml" />
+    <Content Include="Views\Options\Create.cshtml" />
+    <Content Include="Views\Options\Delete.cshtml" />
+    <Content Include="Views\Options\Details.cshtml" />
+    <Content Include="Views\Options\Edit.cshtml" />
+    <Content Include="Views\Options\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -309,8 +331,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\DiplomaMigrations\201602140727339_InitialCreate.resx">
-      <DependentUpon>201602140727339_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ApplicationsMigrations\201602160048215_InitialCreate.resx">
+      <DependentUpon>201602160048215_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ApplicationsMigrations\201602160117559_InitialCreate1.resx">
+      <DependentUpon>201602160117559_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201602160102226_InitialCreate.resx">
+      <DependentUpon>201602160102226_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -331,7 +359,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54898</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54898/</IISUrl>
+          <IISUrl>http://localhost:54890/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
