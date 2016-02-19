@@ -81,28 +81,30 @@ namespace OptionsWebSite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "YearTermId,Year,Term,IsDefault")] YearTerm yearTerm)
         {
-            /*
-            
-
-            for edit and create
-            if ( yearTerm.IsDefault )
-            {
-                var years = db.YearTerms.all();
-                foreach ( var year in years )
-                    year.IsDefault = false
-            }
-
-            */
-
-            //var years = db.YearTerms.ToList();
-            //foreach (var year in years)
-            //    year.IsDefault = false;
-            //db.SaveChanges();
-
+         
             if (ModelState.IsValid)
             {
-                db.Entry(yearTerm).State = EntityState.Modified;
+                foreach (var year in db.YearTerms)
+                {
+                    year.IsDefault = false;
+                }
+
+                YearTerm yt = db.YearTerms.Find(yearTerm.YearTermId);
+                yt.Year = yearTerm.Year;
+                yt.Term = yearTerm.Term;
+                yt.IsDefault = yearTerm.IsDefault;
                 db.SaveChanges();
+                //return RedirectToAction("Index");
+                //db.Entry(yearTerm).State = EntityState.Modified;
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
+
+                var find = db.YearTerms.Where(a => a.IsDefault);
+                if(!find.Any())
+                {
+                    ViewBag.Error = "Cannot Set to false";
+                    return View(yearTerm);
+                }
                 return RedirectToAction("Index");
             }
             return View(yearTerm);
