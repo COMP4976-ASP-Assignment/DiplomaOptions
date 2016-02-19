@@ -10,78 +10,92 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOption.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FourthOption.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecondOption.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThirdOption.Title)
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.YearTerm.YearTermId)*@
-            Year Term
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOption.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FourthOption.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondOption.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThirdOption.Title)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.YearTerm.YearTermId)*@
+                Year Term
 
 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentFirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentLastName)
-        </th>
-        <th></th>
-    </tr>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentLastName)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FourthOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThirdOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.Year)&nbsp;
-            @if (item.YearTerm.Term == 10)
-            { <span>Winter</span> }
-            @if (item.YearTerm.Term == 20)
-            { <span>Spring/Summer</span> }
-            @if (item.YearTerm.Term == 30)
-            { <span>Fall</span> }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentLastName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceId }) |
-            @*<a href="@Url.Action("Edit", "Edit")"><i class="fa fa-pencil-square-o  fa-2x"></i></a>*@
-            @*@Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId }) 
-            @*<a href="@Url.Action("Delete", "Delete")"><i class="fa fa-trash  fa-2x"></i></a>*@
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstOption.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FourthOption.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondOption.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThirdOption.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearTerm.Year)&nbsp;
+                    @if (item.YearTerm.Term == 10)
+                    { <span>Winter</span> }
+                    @if (item.YearTerm.Term == 20)
+                    { <span>Spring/Summer</span> }
+                    @if (item.YearTerm.Term == 30)
+                    { <span>Fall</span> }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentLastName)
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/Choices/Edit/@item.ChoiceId')">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/Choices/Details/@item.ChoiceId')">
+                            <i class="fa fa-info-circle"></i>
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/Choices/Delete/@item.ChoiceId')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.ChoiceId }) |*@
 
-</table>
+                    @*@Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |*@
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId })*@
+                    @*<a href="@Url.Action("Delete", "Delete")"><i class="fa fa-trash  fa-2x"></i></a>*@
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -39,6 +39,24 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            var a = db.Options.Find(choice.FirstChoiceOptionId);
+            var b = db.Options.Find(choice.SecondChoiceOptionId);
+            var c = db.Options.Find(choice.ThirdChoiceOptionId);
+            var d = db.Options.Find(choice.FourthChoiceOptionId);
+            var e = db.YearTerms.Find(choice.YearTermId);
+
+            ViewBag.f = a.Title;
+            ViewBag.s = b.Title;
+            ViewBag.t = c.Title;
+            ViewBag.z = d.Title;
+            ViewBag.q = e.Year + " ";
+
+            if (e.Term == 10) ViewBag.q += "Winter";
+            else if (e.Term == 20) ViewBag.q += "Spring/Summer";
+            else if (e.Term == 30) ViewBag.q += "Fall";
+            else ViewBag.q += ":(";
+
             return View(choice);
         }
 
@@ -65,13 +83,6 @@ namespace OptionsWebSite.Controllers
                        where query.IsDefault.Equals(true)
                        select query;
 
-            
-            //IEnumerable<SelectListItem> selectList = from year in yearTerms
-            //                                         select new SelectListItem
-            //                                         {
-            //                                             Text = name[year.Term],
-            //                                             Value = year.YearTermId.ToString()
-            //                                         };
             if (term != null)
             {
                 ViewBag.YearTermIdValue = term.ToArray().ElementAt(0).YearTermId;

@@ -99,7 +99,7 @@
   <ItemGroup>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Identity\IdentityModels.cs" />
-    <Compile Include="Models\CustomValidation\CheckDuplicates.cs" />
+    <Compile Include="Models\CheckDuplicates.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Choice.cs" />
     <Compile Include="Models\DiplomaContext.cs" />
@@ -111,7 +111,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\CustomValidation\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

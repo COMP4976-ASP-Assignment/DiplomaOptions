@@ -81,6 +81,24 @@ namespace OptionsWebSite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "YearTermId,Year,Term,IsDefault")] YearTerm yearTerm)
         {
+            /*
+            
+
+            for edit and create
+            if ( yearTerm.IsDefault )
+            {
+                var years = db.YearTerms.all();
+                foreach ( var year in years )
+                    year.IsDefault = false
+            }
+
+            */
+
+            //var years = db.YearTerms.ToList();
+            //foreach (var year in years)
+            //    year.IsDefault = false;
+            //db.SaveChanges();
+
             if (ModelState.IsValid)
             {
                 db.Entry(yearTerm).State = EntityState.Modified;
@@ -111,20 +129,22 @@ namespace OptionsWebSite.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var choices = db.Choices.Where(a => a.YearTermId == id).Select(a => a.ChoiceId);
-                
-           foreach (var a in choices)
-            {
-                Choice c = db.Choices.Find(a);
-                db.Choices.Remove(c);
-            }
-            
-
             YearTerm yearTerm = db.YearTerms.Find(id);
-            db.YearTerms.Remove(yearTerm);
-            db.SaveChanges();
 
-            
-            return RedirectToAction("Index");
+            if ( choices.Count() != 0 )
+            {
+                ViewBag.error = "A choice with this year already exists";
+            }
+            else
+            {
+                db.YearTerms.Remove(yearTerm);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+
+            return View(yearTerm);
+
         }
 
         protected override void Dispose(bool disposing)
