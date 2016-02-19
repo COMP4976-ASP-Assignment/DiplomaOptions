@@ -189,6 +189,19 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            IList<YearTerm> yearTerms = db.YearTerms.ToList();
+            var term = from query in yearTerms
+                       where query.IsDefault.Equals(true)
+                       select query;
+            var name = new Dictionary<int, string>();
+            name[10] = "Winter";
+            name[20] = "Spring/Summer";
+            name[30] = "Fall";
+
+            ViewBag.YearTermIdValue = term.ToArray().ElementAt(0).YearTermId;
+            ViewBag.YearTermDisplay = term.ToArray().ElementAt(0).Year + " " + name[term.ToArray().ElementAt(0).Term];
+            ViewBag.StudentId = db.Choices.Find(id).StudentId;
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
@@ -211,6 +224,18 @@ namespace OptionsWebSite.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            IList<YearTerm> yearTerms = db.YearTerms.ToList();
+            var term = from query in yearTerms
+                       where query.IsDefault.Equals(true)
+                       select query;
+            var name = new Dictionary<int, string>();
+            name[10] = "Winter";
+            name[20] = "Spring/Summer";
+            name[30] = "Fall";
+
+            ViewBag.YearTermIdValue = term.ToArray().ElementAt(0).YearTermId;
+            ViewBag.YearTermDisplay = term.ToArray().ElementAt(0).Year + " " + name[term.ToArray().ElementAt(0).Term];
+            ViewBag.StudentId = choice.StudentId;
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
