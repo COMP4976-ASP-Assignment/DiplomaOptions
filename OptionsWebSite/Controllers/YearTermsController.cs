@@ -33,6 +33,16 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            var e = db.YearTerms.Find(id);
+       
+            ViewBag.q = "";
+
+            if (e.Term == 10) ViewBag.q += "Winter";
+            else if (e.Term == 20) ViewBag.q += "Spring/Summer";
+            else if (e.Term == 30) ViewBag.q += "Fall";
+            else ViewBag.q += ":(";
+            
             return View(yearTerm);
         }
 
@@ -71,6 +81,20 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            IList<YearTerm> yearTerms = db.YearTerms.ToList();
+            var name = new Dictionary<int, string>();
+
+            name[10] = "Winter";
+            name[20] = "Spring/Summer";
+            name[30] = "Fall";
+            IEnumerable<SelectListItem> selectList = from year in yearTerms
+                                                     select new SelectListItem
+                                                     {
+                                                         Text = name[year.Term],
+                                                         Value = year.Term.ToString()
+                                                     };
+            ViewBag.Term = selectList;
             return View(yearTerm);
         }
 
@@ -81,34 +105,42 @@ namespace OptionsWebSite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "YearTermId,Year,Term,IsDefault")] YearTerm yearTerm)
         {
-         
-            if (ModelState.IsValid)
+            if (yearTerm.Term != 10 && yearTerm.Term != 20 && yearTerm.Term != 30)
             {
-                foreach (var year in db.YearTerms)
-                {
-                    year.IsDefault = false;
-                }
-
-                YearTerm yt = db.YearTerms.Find(yearTerm.YearTermId);
-                yt.Year = yearTerm.Year;
-                yt.Term = yearTerm.Term;
-                yt.IsDefault = yearTerm.IsDefault;
-                db.SaveChanges();
-                //return RedirectToAction("Index");
-                //db.Entry(yearTerm).State = EntityState.Modified;
-                //db.SaveChanges();
-                //return RedirectToAction("Index");
-
-                var find = db.YearTerms.Where(a => a.IsDefault);
-                if(!find.Any())
-                {
-                    ViewBag.Error = "Cannot Set to false";
-                    return View(yearTerm);
-                }
-                return RedirectToAction("Index");
+                ViewBag.Error = "Invalid value for term";
+                return View(yearTerm);
             }
-            return View(yearTerm);
-        }
+            var q = from y in db.YearTerms
+                        where y.IsDefault == true
+                        select y;
+                var s = q.ToArray();
+                if (yearTerm.IsDefault == false && s.Length <= 1 && yearTerm.YearTermId == s[0].YearTermId)
+                {
+                    ModelState.AddModelError("IsDefault", "There is no current default");
+                        
+                     }
+                if (yearTerm.IsDefault)
+                {
+                
+                    foreach (var year in db.YearTerms.Where(a=>a.IsDefault))
+                    {
+                        if (year.YearTermId != yearTerm.YearTermId)
+                            year.IsDefault = false;
+                    }
+                }
+
+            if (ModelState.IsValid)
+                {
+                
+                    YearTerm yt = db.YearTerms.Find(yearTerm.YearTermId);
+                    yt.Year = yearTerm.Year;
+                    yt.Term = yearTerm.Term;
+                    yt.IsDefault = yearTerm.IsDefault;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(yearTerm);
+            }
 
         // GET: YearTerms/Delete/5
         public ActionResult Delete(int? id)
@@ -122,6 +154,16 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            var e = db.YearTerms.Find(id);
+
+            ViewBag.q = "";
+
+            if (e.Term == 10) ViewBag.q += "Winter";
+            else if (e.Term == 20) ViewBag.q += "Spring/Summer";
+            else if (e.Term == 30) ViewBag.q += "Fall";
+            else ViewBag.q += ":(";
+
             return View(yearTerm);
         }
 

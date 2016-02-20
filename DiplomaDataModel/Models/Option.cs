@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace DiplomaDataModel.Models
         [StringLength(50, ErrorMessage = "Option Title is too long.")]
         public String Title { get; set; }
 
+        [DisplayName("Is Active")]
         public Boolean IsActive { get; set; }
     }
 }
