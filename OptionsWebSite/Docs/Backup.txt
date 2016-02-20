@@ -69,4 +69,46 @@
     }
 }
 
+///YEARTERMs CONTROLLER
 
+//if (ModelState.IsValid)
+            //{
+            //return RedirectToAction("Index");
+            //db.Entry(yearTerm).State = EntityState.Modified;
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
+
+            //var find = db.YearTerms.Where(a => a.IsDefault);
+            //if(!find.Any())
+            //{
+            //    ViewBag.Error = "This term already exists or there is no default";
+            //    return View(yearTerm);
+            //} else
+            //{
+            //        if (yearTerm.Term != 10 && yearTerm.Term != 20 && yearTerm.Term != 30)
+            //        {
+            //            ViewBag.Error = "Invalid value for term";
+            //            return View(yearTerm);
+            //        }
+
+            //        if (yearTerm.IsDefault)
+            //        foreach (var year in db.YearTerms)
+            //        {
+            //            year.IsDefault = false;
+            //        }
+            //        else
+            //        {
+            //        var find = db.YearTerms.Where(a => a.IsDefault);
+            //        if (!find.Any())
+            //        {
+            //            ViewBag.Error = "There is no default";
+            //            return View(yearTerm);
+            //        }
+            //    }
+            //    YearTerm yt = db.YearTerms.Find(yearTerm.YearTermId);
+            //        yt.Year = yearTerm.Year;
+            //        yt.Term = yearTerm.Term;
+            //        yt.IsDefault = yearTerm.IsDefault;
+            //        db.SaveChanges();
+            //        return RedirectToAction("Index");
+            //    //}

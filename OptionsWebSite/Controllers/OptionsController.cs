@@ -111,9 +111,39 @@ namespace OptionsWebSite.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Option option = db.Options.Find(id);
-            db.Options.Remove(option);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+           
+
+            var choice1 = db.Choices.Where(a => a.FirstChoiceOptionId == id).Select(a => a.ChoiceId);
+            var choice2 = db.Choices.Where(a => a.SecondChoiceOptionId == id).Select(a => a.ChoiceId);
+            var choice3 = db.Choices.Where(a => a.ThirdChoiceOptionId == id).Select(a => a.ChoiceId);
+            var choice4 = db.Choices.Where(a => a.FourthChoiceOptionId == id).Select(a => a.ChoiceId);
+
+
+            if (choice1.Count() != 0)
+            {
+                ViewBag.error = "A choice uses this as its first option";
+            }
+            else if (choice2.Count() != 0)
+            {
+                ViewBag.error = "A choice uses this as its second option";
+            }
+            else if (choice3.Count() != 0)
+            {
+                ViewBag.error = "A choice uses this as its third option";
+            }
+            else if (choice4.Count() != 0)
+            {
+                ViewBag.error = "A choice uses this as its fourth option";
+            }
+            else
+            {
+                db.Options.Remove(option);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+
+            return View(option);
         }
 
         protected override void Dispose(bool disposing)

@@ -39,6 +39,24 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            var a = db.Options.Find(choice.FirstChoiceOptionId);
+            var b = db.Options.Find(choice.SecondChoiceOptionId);
+            var c = db.Options.Find(choice.ThirdChoiceOptionId);
+            var d = db.Options.Find(choice.FourthChoiceOptionId);
+            var e = db.YearTerms.Find(choice.YearTermId);
+
+            ViewBag.f = a.Title;
+            ViewBag.s = b.Title;
+            ViewBag.t = c.Title;
+            ViewBag.z = d.Title;
+            ViewBag.q = e.Year + " ";
+
+            if (e.Term == 10) ViewBag.q += "Winter";
+            else if (e.Term == 20) ViewBag.q += "Spring/Summer";
+            else if (e.Term == 30) ViewBag.q += "Fall";
+            else ViewBag.q += ":(";
+
             return View(choice);
         }
 
@@ -65,13 +83,6 @@ namespace OptionsWebSite.Controllers
                        where query.IsDefault.Equals(true)
                        select query;
 
-            
-            //IEnumerable<SelectListItem> selectList = from year in yearTerms
-            //                                         select new SelectListItem
-            //                                         {
-            //                                             Text = name[year.Term],
-            //                                             Value = year.YearTermId.ToString()
-            //                                         };
             if (term != null)
             {
                 ViewBag.YearTermIdValue = term.ToArray().ElementAt(0).YearTermId;
@@ -86,11 +97,14 @@ namespace OptionsWebSite.Controllers
                 ViewBag.YearTermIdValue = 0;
                 ViewBag.YearTermDisplay = "N/A";
             }
-            
+
+            var defaultTerm = db.YearTerms.Where(a => a.IsDefault).ToList();
+
+         
 
             foreach (var id in sId)
             {
-                if (id.StudentId == user.UserName)
+                if (id.StudentId == user.UserName && defaultTerm.ElementAt(0).YearTermId == id.YearTermId)
                 {
                     ViewBag.Error = "Already Choosen options";
                     return View();
@@ -137,9 +151,11 @@ namespace OptionsWebSite.Controllers
             //}
                
             var sId = db.Choices.ToList();
+            var defaultTerm = db.YearTerms.Where(a => a.IsDefault).ToList();
+  
             foreach (var id in sId)
             {
-                if (id.StudentId == choice.StudentId)
+                if (id.StudentId == user.UserName && defaultTerm.ElementAt(0).YearTermId == id.YearTermId)
                 {
                     ViewBag.Error = "Already Choosen options";
                     return View();
@@ -178,6 +194,19 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            IList<YearTerm> yearTerms = db.YearTerms.ToList();
+            var term = from query in yearTerms
+                       where query.IsDefault.Equals(true)
+                       select query;
+            var name = new Dictionary<int, string>();
+            name[10] = "Winter";
+            name[20] = "Spring/Summer";
+            name[30] = "Fall";
+
+            ViewBag.YearTermIdValue = term.ToArray().ElementAt(0).YearTermId;
+            ViewBag.YearTermDisplay = term.ToArray().ElementAt(0).Year + " " + name[term.ToArray().ElementAt(0).Term];
+            ViewBag.StudentId = db.Choices.Find(id).StudentId;
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
@@ -200,6 +229,18 @@ namespace OptionsWebSite.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            IList<YearTerm> yearTerms = db.YearTerms.ToList();
+            var term = from query in yearTerms
+                       where query.IsDefault.Equals(true)
+                       select query;
+            var name = new Dictionary<int, string>();
+            name[10] = "Winter";
+            name[20] = "Spring/Summer";
+            name[30] = "Fall";
+
+            ViewBag.YearTermIdValue = term.ToArray().ElementAt(0).YearTermId;
+            ViewBag.YearTermDisplay = term.ToArray().ElementAt(0).Year + " " + name[term.ToArray().ElementAt(0).Term];
+            ViewBag.StudentId = choice.StudentId;
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
@@ -221,6 +262,23 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            var a = db.Options.Find(choice.FirstChoiceOptionId);
+            var b = db.Options.Find(choice.SecondChoiceOptionId);
+            var c = db.Options.Find(choice.ThirdChoiceOptionId);
+            var d = db.Options.Find(choice.FourthChoiceOptionId);
+            var e = db.YearTerms.Find(choice.YearTermId);
+
+            ViewBag.f = a.Title;
+            ViewBag.s = b.Title;
+            ViewBag.t = c.Title;
+            ViewBag.z = d.Title;
+            ViewBag.q = e.Year + " ";
+
+            if (e.Term == 10) ViewBag.q += "Winter";
+            else if (e.Term == 20) ViewBag.q += "Spring/Summer";
+            else if (e.Term == 30) ViewBag.q += "Fall";
+            else ViewBag.q += ":(";
             return View(choice);
         }
 

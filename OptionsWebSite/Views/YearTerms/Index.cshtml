@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DiplomaDataModel.Models.YearTerm>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Year Term ~ Index";
 }
 
 <h2>Index</h2>
@@ -9,37 +9,64 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Term)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsDefault)
-        </th>
-        <th></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Term)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDefault)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Term)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDefault)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.YearTermId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.YearTermId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.YearTermId })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Term)*@
+                    @if (item.Term == 10)
+                    {
+                        <span>Winter</span>
+                    }
+                    else if (item.Term == 20)
+                    {
+                        <span>Spring/Summer</span>
+                    }
+                    else if (item.Term == 30)
+                    {
+                        <span>Fall</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDefault)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.YearTermId }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.YearTermId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.YearTermId })*@
 
-</table>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/YearTerms/Edit/@item.YearTermId')">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/YearTerms/Details/@item.YearTermId')">
+                            <i class="fa fa-info-circle"></i>
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/YearTerms/Delete/@item.YearTermId')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+ </div>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DiplomaDataModel.Models.Option>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Options ~ Index";
 }
 
 <h2>Index</h2>
@@ -9,31 +9,46 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OptionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OptionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OptionId })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.OptionId }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.OptionId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.OptionId })*@
 
-</table>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/Options/Edit/@item.OptionId')">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/Options/Details/@item.OptionId')">
+                            <i class="fa fa-info-circle"></i>
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="window.location.assign('/Options/Delete/@item.OptionId')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+ </div>

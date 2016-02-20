@@ -51,7 +51,7 @@ namespace DiplomaDataModel.Models
         [Display(Name = "Second Choice: ")]
         [ForeignKey("SecondOption")]
         public int? SecondChoiceOptionId { get; set; }
-        [ForeignKey("FirstChoiceOptionId")]
+        [ForeignKey("SecondChoiceOptionId")]
         public Option SecondOption { get; set; }
 
         [Required]
