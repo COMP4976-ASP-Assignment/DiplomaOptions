@@ -18,7 +18,7 @@ namespace DiplomaDataModel.Controllers
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             var sId = db.Choices.ToList();
 
-            if(user != null)
+            if (user != null)
             {
                 foreach (var id in sId)
                 {
@@ -30,20 +30,6 @@ namespace DiplomaDataModel.Controllers
                     }
                 }
             }
-            
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }

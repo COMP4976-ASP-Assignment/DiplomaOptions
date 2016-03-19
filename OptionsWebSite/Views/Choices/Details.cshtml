@@ -1,7 +1,7 @@
 ﻿@model DiplomaDataModel.Models.Choice
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Choices ~ Details";
 }
 
 <h2>Details</h2>
@@ -11,43 +11,43 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstOption.Title)
+            First Choice:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FirstOption.Title)
+            @ViewBag.f
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FourthOption.Title)
+            Second Choice:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FourthOption.Title)
+            @ViewBag.s
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SecondOption.Title)
+            Third Choice:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SecondOption.Title)
+            @ViewBag.t
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ThirdOption.Title)
+            Fourth Choice:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ThirdOption.Title)
+            @ViewBag.z
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.YearTerm.YearTermId)
+            Year term:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.YearTerm.YearTermId)
+            @ViewBag.q
         </dd>
 
         <dt>
